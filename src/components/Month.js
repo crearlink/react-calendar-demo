@@ -4,8 +4,9 @@ import { connect } from 'react-redux'
 
 import './month.css'
 
-import { editEvent } from '../actions/index'
+import { createEvent } from '../actions/index'
 
+import { EventDialog } from './EventDialog'
 import { Typography } from './material-ui-barrel'
 
 
@@ -14,12 +15,12 @@ class MonthComponent extends React.Component {
   constructor(props) {
     super(props)
 
-    this.handleEditEvent = this.handleEditEvent.bind(this)
+    this.handleCreateEvent = this.handleCreateEvent.bind(this)
   }
 
 
-  handleEditEvent(date) {
-    this.props.editEvent()
+  handleCreateEvent(date) {
+    this.props.createEvent(date)
   }
 
 
@@ -29,25 +30,27 @@ class MonthComponent extends React.Component {
     const currentMonth = today.getMonth()
 
     return (
-      <div id="month">
-        {dates.map((date, key) => {
-          const fadedClass = (date.getMonth() !== currentMonth) ? 'day-faded' : ''
+      <React.Fragment>
+        <EventDialog></EventDialog>
+        <div id="month">
+          {dates.map((date, key) => {
+            const fadedClass = (date.getMonth() !== currentMonth) ? 'day-faded' : ''
 
-          return (
-            <span
-              className={`day-wrapper ${fadedClass}`}
-              key={key}
-              onClick={this.handleEditEvent}
-            >
-              <Typography variant="h6" align="right" gutterBottom>
-                {date.getDate()}
-              </Typography>
-            </span>
-          )
-        }
-        )}
-      </div>
-
+            return (
+              <span
+                className={`day-wrapper ${fadedClass}`}
+                key={key}
+                onClick={() => this.handleCreateEvent(date)}
+              >
+                <Typography variant="h6" align="right" gutterBottom>
+                  {date.getDate()}
+                </Typography>
+              </span>
+            )
+          }
+          )}
+        </div>
+      </React.Fragment>
     )
   }
 
@@ -59,6 +62,6 @@ const mapStateToProps = state => ({
 })
 
 const matchDispatchToProps = dispatch =>
-  bindActionCreators({ editEvent: editEvent }, dispatch)
+  bindActionCreators({ createEvent: createEvent }, dispatch)
 
 export const Month = connect(mapStateToProps, matchDispatchToProps)(MonthComponent)

@@ -1,15 +1,25 @@
 const initialState = {
-  editingEvent: false
+  isEditingEvent: false,
+  editingEvent: null
 }
 
 
 export default function (state = initialState, action) {
   switch (action.type) {
 
-    case 'EDIT_EVENT':
+    case 'CREATE_EVENT':
       return {
         ...state,
-        editingEvent: true
+        editingEvent: {
+          date: action.payload.date
+        },
+        isEditingEvent: true
+      }
+
+    case 'CLOSE_EVENT':
+      return {
+        ...state,
+        isEditingEvent: false
       }
 
     default:

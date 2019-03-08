@@ -6,8 +6,6 @@ export default createMuiTheme({
     useNextVariants: true,
   },
   palette: {
-    text: {
-      primary: 'rgba(255,255,255, .87)'
-    }
+    type: 'dark'
   }
 })
