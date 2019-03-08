@@ -28,6 +28,14 @@ export default function (state = initialState, action) {
       }
 
 
+    case 'DELETE_EVENT':
+      delete (state.days[action.payload.date][action.payload.key])
+
+      return {
+        ...state
+      }
+
+
     case 'INSERT_EVENT':
       const date = getFormattedDate(state.editingEvent.date)
 
@@ -35,13 +43,11 @@ export default function (state = initialState, action) {
 
       dateEvents.push({ title: action.payload.title })
 
-      const days = { ...state.days }
-      days[date] = dateEvents
+      state.days[date] = dateEvents
 
       return {
         ...state,
-        isEditingEvent: false,
-        days
+        isEditingEvent: false
       }
 
     default:

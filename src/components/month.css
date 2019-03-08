@@ -14,13 +14,7 @@
   border-right: 1px solid rgba(166, 168, 179, 0.12);
   box-sizing: border-box;
   padding: .5rem;
-}
-
-.day-number {
-  color: rgba(255, 255, 255, .95);
-  display: block;
-  font-weight: bold;
-  text-align: right
+  overflow-y: auto
 }
 
 .day-faded {

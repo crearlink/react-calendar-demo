@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import './month.css'
 
-import { createEvent } from '../actions/index'
+import { createEvent, deleteEvent } from '../actions/index'
 import { getFormattedDate } from '../helpers'
 
 import { EventDialog } from './EventDialog'
@@ -17,6 +17,7 @@ class MonthComponent extends React.Component {
     super(props)
 
     this.handleCreateEvent = this.handleCreateEvent.bind(this)
+    this.handleDeleteEvent = this.handleDeleteEvent.bind(this)
   }
 
 
@@ -25,9 +26,13 @@ class MonthComponent extends React.Component {
   }
 
 
+  handleDeleteEvent({ date, key }) {
+    this.props.deleteEvent({ date, key })
+  }
+
+
   render() {
     const { dates, today } = this.props
-
     const currentMonth = today.getMonth()
 
     return (
@@ -49,10 +54,12 @@ class MonthComponent extends React.Component {
                 <Typography variant="h6" align="right" gutterBottom>
                   {date.getDate()}
                 </Typography>
-                {dateEvents.map((event, key) => (
+                {dateEvents.map((event, index) => (
                   <Chip
-                    key={key}
+                    key={index}
                     label={event.title}
+                    onClick={e => e.stopPropagation()}
+                    onDelete={() => this.handleDeleteEvent({ date: dateKey, key: index })}
                   />
                 ))}
               </span>
@@ -72,6 +79,9 @@ const mapStateToProps = state => ({
 })
 
 const matchDispatchToProps = dispatch =>
-  bindActionCreators({ createEvent: createEvent }, dispatch)
+  bindActionCreators({
+    createEvent,
+    deleteEvent
+  }, dispatch)
 
 export const Month = connect(mapStateToProps, matchDispatchToProps)(MonthComponent)

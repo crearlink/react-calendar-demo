@@ -9,6 +9,12 @@ export const closeEvent = () => ({
 })
 
 
+export const deleteEvent = payload => ({
+  type: 'DELETE_EVENT',
+  payload
+})
+
+
 export const insertEvent = payload => ({
   type: 'INSERT_EVENT',
   payload

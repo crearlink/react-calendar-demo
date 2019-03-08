@@ -7,8 +7,7 @@ import { getMonthDays } from './helpers'
 import store from './store'
 import theme from './theme'
 
-import { Month } from './components'
-import { Typography } from './components/material-ui-barrel'
+import { Month, Typography } from './components'
 
 
 export default class extends Component {
