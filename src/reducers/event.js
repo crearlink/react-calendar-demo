@@ -1,6 +1,3 @@
-import { getFormattedDate } from '../helpers'
-
-
 const initialState = {
   isEditingEvent: false,
   editingEvent: null,
@@ -16,7 +13,8 @@ export default function (state = initialState, action) {
         ...state,
         editingEvent: {
           date: action.payload.date,
-          title: ''
+          title: '',
+          key: null
         },
         isEditingEvent: true
       }
@@ -36,12 +34,33 @@ export default function (state = initialState, action) {
       }
 
 
-    case 'INSERT_EVENT':
-      const date = getFormattedDate(state.editingEvent.date)
+    case 'EDIT_EVENT':
+      const event = state.days[action.payload.date][action.payload.key]
+
+      return {
+        ...state,
+        editingEvent: {
+          date: action.payload.date,
+          title: event.title,
+          key: action.payload.key
+        },
+        isEditingEvent: true
+      }
+
+
+    case 'SAVE_EVENT':
+      const { date, key } = state.editingEvent
+      const { title } = action.payload
 
       const dateEvents = date in state.days ? state.days[date] : []
 
-      dateEvents.push({ title: action.payload.title })
+      if (key === null) {
+        dateEvents.push({ title })
+      } else {
+        state.days[date][key] = {
+          title
+        }
+      }
 
       state.days[date] = dateEvents
 

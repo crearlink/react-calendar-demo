@@ -11,7 +11,7 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 import TextField from '@material-ui/core/TextField'
 
 
-import { closeEvent, insertEvent } from '../actions/index'
+import { closeEvent, saveEvent } from '../actions/index'
 
 
 class EventDialogComponent extends React.Component {
@@ -30,7 +30,7 @@ class EventDialogComponent extends React.Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     if (!prevState.isEditingEvent && nextProps.events.isEditingEvent) {
       return {
-        title: '',
+        title: nextProps.events.editingEvent.title,
         isEditingEvent: true
       }
     }
@@ -46,7 +46,7 @@ class EventDialogComponent extends React.Component {
 
 
   handleSave = () => {
-    this.props.insertEvent({ title: this.state.title })
+    this.props.saveEvent({ title: this.state.title })
   }
 
 
@@ -66,13 +66,19 @@ class EventDialogComponent extends React.Component {
 
 
   render() {
-    return this.props.events.isEditingEvent && (
+    if (!this.props.events.isEditingEvent) {
+      return null
+    }
+
+    const dialogTitleAction = (this.props.events.editingEvent.key === null) ? 'Insert' : 'Edit'
+
+    return (
       <Dialog
         open={true}
         onClose={this.handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">New Event</DialogTitle>
+        <DialogTitle id="form-dialog-title">{dialogTitleAction} Event</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Date: {this.getFormatedDate()}
@@ -110,7 +116,7 @@ const mapStateToProps = state => ({
 const matchDispatchToProps = dispatch =>
   bindActionCreators({
     closeEvent,
-    insertEvent
+    saveEvent
   }, dispatch)
 
 export const EventDialog = connect(mapStateToProps, matchDispatchToProps)(EventDialogComponent)

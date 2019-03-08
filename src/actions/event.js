@@ -15,7 +15,13 @@ export const deleteEvent = payload => ({
 })
 
 
-export const insertEvent = payload => ({
-  type: 'INSERT_EVENT',
+export const editEvent = payload => ({
+  type: 'EDIT_EVENT',
+  payload
+})
+
+
+export const saveEvent = payload => ({
+  type: 'SAVE_EVENT',
   payload
 })
