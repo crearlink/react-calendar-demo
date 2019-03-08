@@ -1,0 +1,28 @@
+#month {
+  border-top: 1px solid rgba(166, 168, 179, 0.12);
+  border-left: 1px solid rgba(166, 168, 179, 0.12);
+  display: grid;
+  grid-auto-flow: dense;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  height: 99vh;
+  width: 99vw;
+}
+
+.day-wrapper {
+  border-bottom: 1px solid rgba(166, 168, 179, 0.12);
+  border-right: 1px solid rgba(166, 168, 179, 0.12);
+  box-sizing: border-box;
+  padding: .5rem;
+}
+
+.day-number {
+  color: rgba(255, 255, 255, .95);
+  display: block;
+  font-weight: bold;
+  text-align: right
+}
+
+.day-faded {
+  opacity: .6;
+}
