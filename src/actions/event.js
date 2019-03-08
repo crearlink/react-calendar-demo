@@ -7,3 +7,9 @@ export const createEvent = date => ({
 export const closeEvent = () => ({
   type: 'CLOSE_EVENT'
 })
+
+
+export const insertEvent = payload => ({
+  type: 'INSERT_EVENT',
+  payload
+})

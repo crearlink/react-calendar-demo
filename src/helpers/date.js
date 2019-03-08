@@ -25,3 +25,6 @@ export const getMonthDays = date => {
 
   return getNext35Days(monday)
 }
+
+
+export const getFormattedDate = date => date.toISOString().substr(0, 10)
