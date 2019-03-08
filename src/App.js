@@ -32,7 +32,7 @@ export default class extends Component {
               </Typography>
             </header>
             <main>
-              <Month dates={this.dates} today={new Date()}></Month>
+              <Month dates={this.dates} today={new Date()} />
             </main>
           </div>
         </MuiThemeProvider>

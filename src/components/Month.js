@@ -5,9 +5,10 @@ import { connect } from 'react-redux'
 import './month.css'
 
 import { createEvent } from '../actions/index'
+import { getFormattedDate } from '../helpers'
 
 import { EventDialog } from './EventDialog'
-import { Typography } from './material-ui-barrel'
+import { Chip, Typography } from './material-ui-barrel'
 
 
 class MonthComponent extends React.Component {
@@ -33,18 +34,27 @@ class MonthComponent extends React.Component {
       <React.Fragment>
         <EventDialog></EventDialog>
         <div id="month">
-          {dates.map((date, key) => {
+          {dates.map(date => {
             const fadedClass = (date.getMonth() !== currentMonth) ? 'day-faded' : ''
+            const dateKey = getFormattedDate(date)
+
+            const dateEvents = dateKey in this.props.events.days ? this.props.events.days[dateKey] : []
 
             return (
               <span
                 className={`day-wrapper ${fadedClass}`}
-                key={key}
+                key={dateKey}
                 onClick={() => this.handleCreateEvent(date)}
               >
                 <Typography variant="h6" align="right" gutterBottom>
                   {date.getDate()}
                 </Typography>
+                {dateEvents.map((event, key) => (
+                  <Chip
+                    key={key}
+                    label={event.title}
+                  />
+                ))}
               </span>
             )
           }
