@@ -5,8 +5,8 @@
   grid-auto-flow: dense;
   grid-template-columns: repeat(7, 1fr);
   grid-template-rows: repeat(5, 1fr);
-  height: 99vh;
-  width: 99vw;
+  height: 100%;
+  width: 100%;
 }
 
 .day-wrapper {

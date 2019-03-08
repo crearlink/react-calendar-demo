@@ -2,6 +2,8 @@ import React from 'react'
 
 import './month.css'
 
+import { Typography } from './material-ui-barrel'
+
 
 export const Month = ({ dates, today }) => {
 
@@ -14,9 +16,9 @@ export const Month = ({ dates, today }) => {
 
         return (
           <span className={`day-wrapper ${fadedClass}`} key={key}>
-            <span className="day-number">
+            <Typography variant="h6" align="right" gutterBottom>
               {date.getDate()}
-            </span>
+            </Typography>
           </span>
         )
       }

@@ -1,4 +1,4 @@
-.App {
+#main-wrapper {
   align-items: center;
   background-color: #282c34;
   color: white;
@@ -6,4 +6,17 @@
   flex-direction: column;
   justify-content: center;
   min-height: 100vh;
+  height: 100%;
+  width: 100%;
+}
+
+header {
+  height: 3.4rem;
+  width: 100%;
+}
+
+main {
+  display: flex;
+  height: calc(100vh - 3.8rem);
+  width: 100%;
 }
