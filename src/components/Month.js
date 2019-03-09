@@ -1,10 +1,11 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 import './month.css'
 
-import { createEvent, deleteEvent, editEvent } from '../actions/index'
+import { createEvent, deleteEvent, editEvent } from '../actions'
 import { getFormattedDate } from '../helpers'
 
 import { EventDialog } from './EventDialog'
@@ -44,7 +45,7 @@ class MonthComponent extends React.Component {
 
     return (
       <React.Fragment>
-        <EventDialog></EventDialog>
+        <EventDialog />
         <div id="month">
           {dates.map(date => {
             const fadedClass = (date.getMonth() !== currentMonth) ? 'day-faded' : ''
@@ -80,6 +81,11 @@ class MonthComponent extends React.Component {
 
 }
 
+
+MonthComponent.propTypes = {
+  dates: PropTypes.array.isRequired,
+  today: PropTypes.instanceOf(Date)
+}
 
 const mapStateToProps = state => ({
   events: state.events
