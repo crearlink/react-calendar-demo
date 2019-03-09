@@ -16,15 +16,10 @@ import { closeEvent, saveEvent } from '../actions/index'
 
 class EventDialogComponent extends React.Component {
 
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      title: '',
-      isEditingEvent: false
-    }
+  state = {
+    title: '',
+    isEditingEvent: false
   }
-
 
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -40,6 +35,7 @@ class EventDialogComponent extends React.Component {
     }
   }
 
+
   handleClose = () => {
     this.props.closeEvent()
   }
@@ -50,9 +46,15 @@ class EventDialogComponent extends React.Component {
   }
 
 
-
   handleTitleChange = event => {
     this.setState({ title: event.target.value })
+  }
+
+
+  handleKeyPress = e => {
+    if (e.key === 'Enter') {
+      this.handleSave()
+    }
   }
 
 
@@ -77,6 +79,7 @@ class EventDialogComponent extends React.Component {
         open={true}
         onClose={this.handleClose}
         aria-labelledby="form-dialog-title"
+        onKeyPress={this.handleKeyPress}
       >
         <DialogTitle id="form-dialog-title">{dialogTitleAction} Event</DialogTitle>
         <DialogContent>
@@ -106,7 +109,6 @@ class EventDialogComponent extends React.Component {
   }
 
 }
-
 
 
 const mapStateToProps = state => ({
