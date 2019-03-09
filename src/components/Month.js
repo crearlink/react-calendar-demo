@@ -12,6 +12,9 @@ import { EventDialog } from './EventDialog'
 import { Chip, Typography } from './material-ui-barrel'
 
 
+/**
+ * This is the main component and includes the month days and their events.
+ */
 class MonthComponent extends React.Component {
 
   constructor(props) {

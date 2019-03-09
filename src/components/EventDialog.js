@@ -14,6 +14,10 @@ import TextField from '@material-ui/core/TextField'
 import { closeEvent, saveEvent } from '../actions/index'
 
 
+/**
+ * Dialog for Event Creation and Edition.
+ * It displays the corresponding date and provides a text field for the title.
+ */
 class EventDialogComponent extends React.Component {
 
   state = {

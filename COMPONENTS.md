@@ -2,11 +2,16 @@
 
 ## EventDialogComponent
 
+Dialog for Event Creation and Edition.
+It displays the corresponding date and provides a text field for the title.
+
 <sub>Source: **src/components/EventDialog.js**</sub>
 
 -----
 
 ## MonthComponent
+
+This is the main component and includes the month days and their events.
 
 Property | Type | Default value | Description
 :--- | :--- | :--- | :---
