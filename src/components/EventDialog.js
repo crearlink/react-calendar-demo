@@ -97,10 +97,10 @@ class EventDialogComponent extends React.Component {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={this.handleClose} color="primary">
+          <Button onClick={this.handleClose} color="default">
             Cancel
             </Button>
-          <Button onClick={this.handleSave} color="primary">
+          <Button onClick={this.handleSave} color="default" variant="outlined">
             Save
             </Button>
         </DialogActions>

@@ -7,5 +7,14 @@ export default createMuiTheme({
   },
   palette: {
     type: 'dark'
+  },
+  overrides: {
+    MuiFormLabel: {
+      root: {
+        '&$focused': {
+          color: 'white'
+        }
+      }
+    }
   }
 })
