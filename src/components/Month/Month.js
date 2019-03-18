@@ -5,11 +5,14 @@ import PropTypes from 'prop-types'
 
 import './month.css'
 
-import { createEvent, deleteEvent, editEvent } from '../actions'
-import { getFormattedDate } from '../helpers'
 
-import { EventDialog } from './EventDialog'
-import { Chip, Typography } from './material-ui-barrel'
+import { createEvent, deleteEvent, editEvent } from '../../actions'
+import { getFormattedDate } from '../../helpers'
+
+import { EventDialog } from '../EventDialog'
+
+import { Day } from './Day'
+import { Event } from './Event'
 
 
 /**
@@ -17,26 +20,17 @@ import { Chip, Typography } from './material-ui-barrel'
  */
 class MonthComponent extends React.Component {
 
-  constructor(props) {
-    super(props)
-
-    this.handleCreateEvent = this.handleCreateEvent.bind(this)
-    this.handleDeleteEvent = this.handleDeleteEvent.bind(this)
-    this.handleEditEvent = this.handleEditEvent.bind(this)
-  }
-
-
-  handleCreateEvent(date) {
+  handleCreateEvent = date => {
     this.props.createEvent(date)
   }
 
 
-  handleDeleteEvent({ date, key }) {
+  handleDeleteEvent = ({ date, key }) => {
     this.props.deleteEvent({ date, key })
   }
 
 
-  handleEditEvent({ date, key }, e) {
+  handleEditEvent = ({ date, key }, e) => {
     e.stopPropagation()
     this.props.editEvent({ date, key })
   }
@@ -51,29 +45,26 @@ class MonthComponent extends React.Component {
         <EventDialog />
         <div id="month">
           {dates.map(date => {
-            const fadedClass = (date.getMonth() !== currentMonth) ? 'day-faded' : ''
             const dateKey = getFormattedDate(date)
-
             const dateEvents = dateKey in this.props.events.days ? this.props.events.days[dateKey] : []
 
             return (
-              <span
-                className={`day-wrapper ${fadedClass}`}
+              <Day
                 key={dateKey}
+                inCurrentMonth={date.getMonth() !== currentMonth}
+                date={date}
                 onClick={() => this.handleCreateEvent(dateKey)}
               >
-                <Typography variant="h6" align="right" gutterBottom>
-                  {date.getDate()}
-                </Typography>
                 {dateEvents.map((event, index) => (
-                  <Chip
+                  <Event
                     key={index}
-                    label={event.title}
+                    title={event.title}
                     onClick={e => this.handleEditEvent({ date: dateKey, key: index }, e)}
                     onDelete={() => this.handleDeleteEvent({ date: dateKey, key: index })}
                   />
                 ))}
-              </span>
+              </Day>
+
             )
           }
           )}
@@ -86,8 +77,9 @@ class MonthComponent extends React.Component {
 
 
 MonthComponent.propTypes = {
+  /** Days of the weeks involved in the current month display */
   dates: PropTypes.array.isRequired,
-  today: PropTypes.instanceOf(Date)
+  today: PropTypes.instanceOf(Date).isRequired
 }
 
 const mapStateToProps = state => ({
