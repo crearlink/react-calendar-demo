@@ -42,7 +42,9 @@ class MonthComponent extends React.Component {
 
     return (
       <React.Fragment>
-        <EventDialog />
+        {this.props.events.isEditingEvent &&
+          <EventDialog />
+        }
         <div id="month">
           {dates.map(date => {
             const dateKey = getFormattedDate(date)

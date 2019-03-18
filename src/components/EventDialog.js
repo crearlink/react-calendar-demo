@@ -21,22 +21,12 @@ import { closeEvent, saveEvent } from '../actions/index'
 class EventDialogComponent extends React.Component {
 
   state = {
-    title: '',
-    isEditingEvent: false
+    title: ''
   }
 
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (!prevState.isEditingEvent && nextProps.events.isEditingEvent) {
-      return {
-        title: nextProps.events.editingEvent.title,
-        isEditingEvent: true
-      }
-    }
-
-    return {
-      isEditingEvent: nextProps.events.isEditingEvent
-    }
+  componentDidMount() {
+    this.setState({ title: this.props.event.title })
   }
 
 
@@ -63,7 +53,7 @@ class EventDialogComponent extends React.Component {
 
 
   getFormatedDate = () =>
-    this.props.events.editingEvent.date.toLocaleString('en-US', {
+    this.props.event.date.toLocaleString('en-US', {
       day: 'numeric',
       month: 'long',
       weekday: 'short',
@@ -72,11 +62,7 @@ class EventDialogComponent extends React.Component {
 
 
   render() {
-    if (!this.props.events.isEditingEvent) {
-      return null
-    }
-
-    const dialogTitleAction = (this.props.events.editingEvent.key === null) ? 'Insert' : 'Edit'
+    const dialogTitleAction = (this.props.event.key === null) ? 'Insert' : 'Edit'
 
     return (
       <Dialog
@@ -116,7 +102,7 @@ class EventDialogComponent extends React.Component {
 
 
 const mapStateToProps = state => ({
-  events: state.events
+  event: state.events.editingEvent
 })
 
 const matchDispatchToProps = dispatch =>
